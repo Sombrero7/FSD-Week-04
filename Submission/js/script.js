@@ -1,30 +1,50 @@
 // This function should retrieve all the project objects from projects array.
 // It should then traverse over the array to create individual cards displaying each project details.
 function loadProjects() {
-  // Write your code here
+  const projectsContainer = document.getElementById("projects");
+  projectsContainer.innerHTML = ""; // Clear existing projects
 
+  projects.forEach((project) => {
+    const projectCard = document.createElement("div");
+    projectCard.classList.add("card");
+
+    projectCard.innerHTML = `
+      <img src="${project.image}" alt="${project.title}">
+      <span><strong>${project.title}</strong></span>
+      <span>${project.description}</span>
+    `;
+
+    projectsContainer.appendChild(projectCard);
+  });
 }
 
-
-
 // This function should return the projectId of the new project
-function newProjectId(){
- // Write code to create and return new Project Id
+function newProjectId() {
+  return projects.length + 1; // Increment ID based on array length
 }
 
 function saveNewProject() {
-
-  // Write your code here
   // Get the new project details by using the DOM elements
-  
-  // Create the new projectId by calling the newProjectId() function
-  
-  
-  // Create a new project object
-  
+  const titleInput = document.getElementById("title").value;
+  const descInput = document.getElementById("desc").value;
+  const imageInput = document.getElementById("image").value;
 
-  // Add the new project object to the projects array 
-  
+  // Validate inputs (optional)
+  if (!titleInput || !descInput || !imageInput) {
+    alert("Please fill out all fields!");
+    return;
+  }
+
+  // Create a new project object
+  const newProject = {
+    id: newProjectId(),
+    title: titleInput,
+    description: descInput,
+    image: imageInput,
+  };
+
+  // Add the new project object to the projects array
+  projects.push(newProject);
 
   // Load the projects after adding the new project
   loadProjects();
